@@ -1,6 +1,6 @@
 import pynrc
 
-from pylab import *;ion()
+from pylab import *
 import pysynphot as S
 
 from scipy.interpolate import CubicSpline
@@ -48,3 +48,89 @@ for kt, Teff in enumerate(Teff_list):
 jhmod = Jmags - Hmags
 hkmod = Hmags - Kmags
 
+### ----
+
+import os 
+
+from numpy import float32
+from astroquery.irsa import Irsa
+import astropy.coordinates as coords
+import astropy.units as u
+
+def deg2HMS(ra='', dec='', round=False):
+  RA, DEC, rs, ds = '', '', '', ''
+  if dec:
+    if str(dec)[0] == '-':
+      ds, dec = '-', abs(dec)
+    deg = int(dec)
+    decM = abs(int((dec-deg)*60))
+    if round:
+      decS = int((abs((dec-deg)*60)-decM)*60)
+    else:
+      decS = (abs((dec-deg)*60)-decM)*60
+    DEC = '{0}{1} {2} {3}'.format(ds, deg, decM, decS)
+  
+  if ra:
+    if str(ra)[0] == '-':
+      rs, ra = '-', abs(ra)
+    raH = int(ra/15)
+    raM = int(((ra/15)-raH)*60)
+    if round:
+      raS = int(((((ra/15)-raH)*60)-raM)*60)
+    else:
+      raS = ((((ra/15)-raH)*60)-raM)*60
+    RA = '{0}{1} {2} {3}'.format(rs, raH, raM, raS)
+  
+  if ra and dec:
+    return (RA, DEC)
+  else:
+    return RA or DEC
+
+def hmsdms2deg(ra,dec):
+    hours2degs = 15.0
+    mins2hours = 1/60.
+    secs2hours = 1/3600.
+    
+    raOut   = float32(ra.split(':'))
+    decOut  = float32(dec.split(':'))
+    
+    raOut   = raOut[0] + raOut[1]*mins2hours + raOut[2]*secs2hours
+    raOut   = raOut*hours2degs
+    decOut  = decOut[0] + decOut[1]*mins2hours + decOut[2]*secs2hours
+    
+    return raOut, decOut
+
+ra = '09:55:33.1730'
+dec= '+69:03:55.061'
+binComp=None
+
+deg2rad     = np.pi/180
+rad2deg     = 180/np.pi
+deg2arcsec  = 3600
+# binComp=[sourceDecRA,sourceDecDEC,J,H,K]
+
+# stars in large field around target
+targetCoords  = coords.SkyCoord(ra=ra, dec=dec, unit=(u.hour, u.deg), frame='icrs')
+fieldSources  = Irsa.query_region(targetCoords, catalog="fp_psc", spatial='Box', width=4 * u.arcmin)
+
+sourceRA    = fieldSources['ra'].data.data # in degrees
+sourceDec   = fieldSources['dec'].data.data # in degrees
+sourceJmag  = fieldSources['j_m'].data.data
+sourceHmag  = fieldSources['h_m'].data.data
+sourceKmag  = fieldSources['k_m'].data.data
+
+# target coords
+sky_distance    = sqrt((sourceRA-targetCoords.ra.value)**2. + (sourceDec-targetCoords.dec.value)**2.)
+targetIndex     = np.argmin(sky_distance)
+
+sourceJ_H   = (sourceJmag-sourceHmag)
+sourceH_K   = (sourceHmag-sourceKmag)
+
+ra,dec = deg2HMS(sourceRA[targetIndex], sourceDec[targetIndex], round=True)
+
+scatter(jhmod, hkmod,s=50,c=Jmags)
+scatter(sourceJ_H, sourceH_K, s=50, c='k')
+xlabel('J-H')
+ylabel('H-K')
+title('Color-Color Synthetic vs Catalog; colors=Jmag')
+plt.show()
