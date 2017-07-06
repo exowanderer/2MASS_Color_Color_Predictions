@@ -43,8 +43,7 @@ teff_list = [x for x in range(2800,5500+100,100)] + [5800] + [6000]
 assert(len(teff_list) == nModels)
 
 for kt, teff in enumerate(teff_list):
-    modelTeff = S.Icat('phoenix', teff, 0.0, 4.5) # load the model
-    Jmags[kt], Hmags[kt], Kmags[kt] = get_magnitudes(stellarType = 'G2V')
+    Jmags[kt], Hmags[kt], Kmags[kt] = get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10)
 
 jhmod = Jmags - Hmags
 hkmod = Hmags - Kmags
