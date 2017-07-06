@@ -5,7 +5,7 @@ import pysynphot as S
 
 from scipy.interpolate import CubicSpline
 
-def get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10):
+def get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10, magScale='vegamag'):
     # Load the Filters
     bp_j = S.ObsBandpass('j')
     bp_h = S.ObsBandpass('h')
@@ -15,7 +15,7 @@ def get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10):
     # Stellar spectrum normalized to V=10 mags (default Phoenix models)
     sp = S.Icat('phoenix', Teff, FeH, logg)#pynrc.stellar_spectrum(stellarType, Vmag, 'vegamag', bp_v)
     
-    sp_norm = sp.renorm(Vmag, 'vegamag', bp_v)
+    sp_norm = sp.renorm(Vmag, magScale, bp_v)
     sp_norm.name = sp.name
     sp = sp_norm
     
@@ -25,9 +25,9 @@ def get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10):
     obs_k = S.Observation(sp, bp_k, binset=sp.wave)
     
     # Magnitudes in each filter
-    mag_j = obs_j.effstim('vegamag')
-    mag_h = obs_h.effstim('vegamag')
-    mag_k = obs_k.effstim('vegamag')
+    mag_j = obs_j.effstim(magScale)
+    mag_h = obs_h.effstim(magScale)
+    mag_k = obs_k.effstim(magScale)
     
     return mag_j, mag_h, mag_k
 
@@ -43,7 +43,8 @@ Teff_list = [x for x in range(2800,5500+100,100)] + [5800] + [6000]
 assert(len(Teff_list) == nModels)
 
 for kt, Teff in enumerate(Teff_list):
-    Jmags[kt], Hmags[kt], Kmags[kt] = get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10)
+    Jmags[kt], Hmags[kt], Kmags[kt] = get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10, magScale='vegamag')
 
 jhmod = Jmags - Hmags
 hkmod = Hmags - Kmags
+
