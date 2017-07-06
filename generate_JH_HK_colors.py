@@ -13,7 +13,7 @@ def get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10):
     bp_v = S.ObsBandpass('johnson,v')
     
     # Stellar spectrum normalized to V=10 mags (default Phoenix models)
-    sp = S.Icat(Teff, FeH, logg)#pynrc.stellar_spectrum(stellarType, Vmag, 'vegamag', bp_v)
+    sp = S.Icat('phoenix', Teff, FeH, logg)#pynrc.stellar_spectrum(stellarType, Vmag, 'vegamag', bp_v)
     
     sp_norm = sp.renorm(Vmag, 'vegamag', bp_v)
     sp_norm.name = sp.name
