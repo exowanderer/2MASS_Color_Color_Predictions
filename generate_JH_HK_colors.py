@@ -100,8 +100,10 @@ def hmsdms2deg(ra,dec):
     
     return raOut, decOut
 
-ra = '09:55:33.1730'
-dec= '+69:03:55.061'
+# ra = '09:55:33.1730'
+# dec= '+69:03:55.061'
+ra     ='19:50:50.25'
+dec    ='+48:04:51.1'
 binComp=None
 
 deg2rad     = np.pi/180
@@ -133,4 +135,4 @@ scatter(sourceJ_H, sourceH_K, s=50, c='k')
 xlabel('J-H')
 ylabel('H-K')
 title('Color-Color Synthetic vs Catalog; colors=Jmag')
-plt.show()
+# plt.show()
