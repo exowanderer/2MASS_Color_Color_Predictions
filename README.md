@@ -2,4 +2,4 @@
 
 Take in pysynphot and 2MASS filters from svo_filters to geneate CC-plots.
 
-![Alt text](/relative/path/to/img.jpg?raw=true "Optional Title")
+![Alt text](JH_HK_color_color_plots_sunlike_stars.png?raw=true "Optional Title")
