@@ -100,8 +100,7 @@ def hmsdms2deg(ra,dec):
     
     return raOut, decOut
 
-# ra = '09:55:33.1730'
-# dec= '+69:03:55.061'
+# RA and Dec for HAT-P-11
 ra     ='19:50:50.25'
 dec    ='+48:04:51.1'
 binComp=None
@@ -130,9 +129,13 @@ sourceH_K   = (sourceHmag-sourceKmag)
 
 ra,dec = deg2HMS(sourceRA[targetIndex], sourceDec[targetIndex], round=True)
 
-scatter(jhmod, hkmod,s=50,c=Jmags)
-scatter(sourceJ_H, sourceH_K, s=50, c='k')
+rcParams['figure.dpi'] = 300
+
+scatter(sourceJ_H, sourceH_K, s=50, c='k', alpha=0.5)
+sc = scatter(jhmod, hkmod,s=50,c=Jmags)
 xlabel('J-H')
 ylabel('H-K')
 title('Color-Color Synthetic vs Catalog; colors=Jmag')
+colorbar(sc)
+savefig('JH_HK_color_color_plots_sunlike_stars.png')
 # plt.show()
