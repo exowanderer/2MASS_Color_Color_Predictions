@@ -136,6 +136,7 @@ rcParams['figure.dpi'] = 300
 # scatter(sourceJ_H, sourceH_K, s=50, c='k', alpha=0.5, lw = 0)
 # sc = scatter(jhmod, hkmod,s=50,c=Jmags,cmap=cm.plasma)
 scatter(sourceH_K, sourceJ_H, s=50, c='k', alpha=0.5, lw = 0)
+
 sc = scatter(hkmod, jhmod, s=50, c=Jmags, cmap=cm.plasma)
 xlabel('J-H')
 ylabel('H-K')
