@@ -5,15 +5,15 @@ import pysynphot as S
 
 from scipy.interpolate import CubicSpline
 
-def get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10, magScale='vegamag'):
+def get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10, magScale='vegamag', modelgrid='ck04models'):
     # Load the Filters
     bp_j = S.ObsBandpass('j')
     bp_h = S.ObsBandpass('h')
     bp_k = S.ObsBandpass('k')
     bp_v = S.ObsBandpass('johnson,v')
     
-    # Stellar spectrum normalized to V=10 mags (default Phoenix models)
-    sp = S.Icat('phoenix', Teff, FeH, logg)#pynrc.stellar_spectrum(stellarType, Vmag, 'vegamag', bp_v)
+    # Stellar spectrum normalized to V=10 mags (default Castelli & Kurucz 2004 models)
+    sp = S.Icat(modelgrid, Teff, FeH, logg)#pynrc.stellar_spectrum(stellarType, Vmag, 'vegamag', bp_v)
     
     sp_norm = sp.renorm(Vmag, magScale, bp_v)
     sp_norm.name = sp.name
@@ -43,7 +43,9 @@ Teff_list = [x for x in range(2800,5500+100,100)] + [5800] + [6000]
 assert(len(Teff_list) == nModels)
 
 for kt, Teff in enumerate(Teff_list):
-    Jmags[kt], Hmags[kt], Kmags[kt] = get_magnitudes(Teff, FeH=0.0, logg=4.5, Vmag=10, magScale='vegamag')
+    Jmags[kt], Hmags[kt], Kmags[kt] = get_magnitudes(Teff, \
+                                                     FeH=0.0, \
+                                                     logg=4.5, Vmag=10, magScale='vegamag',modelgrid='ck04models')
 
 jhmod = Jmags - Hmags
 hkmod = Hmags - Kmags
