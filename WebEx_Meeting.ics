@@ -1,0 +1,44 @@
+BEGIN:VCALENDAR
+PRODID:-//Microsoft Corporation//Outlook 10.0 MIMEDIR//EN
+VERSION:2.0
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Eastern Time
+BEGIN:STANDARD
+DTSTART:20151101T020000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=1SU;BYMONTH=11
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:Standard Time
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:20150301T020000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=2SU;BYMONTH=3
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:Daylight Savings Time
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+ATTENDEE;CN="Alex Fullerton";ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:fullerton@stsci.edu
+ORGANIZER;CN="Alex Fullerton":MAILTO:fullerton@stsci.edu
+DTSTART;TZID="Eastern Time":20150526T130000
+DTEND;TZID="Eastern Time":20150526T140000
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU
+LOCATION:https://stsci.webex.com/stsci
+TRANSP:OPAQUE
+SEQUENCE:1500313298
+UID:WEBEX-MEETING CENTER-6.0635663-268071712-SU=stsci
+DTSTAMP:20170711T170000Z
+DESCRIPTION:\n\n\nJOIN WEBEX MEETING\nhttps://stsci.webex.com/stsci/j.php?MTID=mc8df3558ae60164c1e1d5f4fa9baaf5c\nMeeting number (access code): 647 073 324\nMeeting password: Time2Chat%\n\n\nJOIN BY PHONE\n1-855-244-8681 Call-in toll-free number (US/Canada) \n1-650-479-3207 Call-in toll number (US/Canada)\n\nToll-free dialing restrictions: \nhttps://www.webex.com/pdf/tollfree_restrictions.pdf\n\n\n\nCan't join the meeting?\nhttps://help.webex.com/docs/DOC-5412\n\nIMPORTANT NOTICE: Please note that this WebEx service allows audio and other information sent during the session to be recorded, which may be discoverable in a legal matter. By joining this session, you automatically consent to such recordings. If you do not consent to being recorded, discuss your concerns with the host or do not join the session.\n
+X-ALT-DESC;FMTTYPE=text/html:	<FONT SIZE="1" FACE="ARIAL">&nbsp;<BR>&nbsp;<BR>&nbsp;<BR><FONT SIZE="4" FACE="ARIAL">		<a href="https://stsci.webex.com/stsci/j.php?MTID=mc8df3558ae60164c1e1d5f4fa9baaf5c"><FONT SIZE="3" COLOR="#00AFF9" FACE="Arial">Join WebEx meeting</FONT></a>			<table>				<tr>					<td>						<FONT SIZE="2" COLOR="#666666" FACE="arial">Meeting number (access code): 647 073 324</FONT>					</td>				</tr>			</table>						<table><tr><td><FONT SIZE="2" COLOR="#666666" FACE="arial">Meeting password:</FONT></td><td><FONT SIZE="2"  COLOR="#666666" FACE="arial">Time2Chat%</FONT></td></tr></table>		</FONT><FONT SIZE="1" FACE="ARIAL">&nbsp;<BR>&nbsp;<BR></FONT><FONT SIZE="4" FACE="Segoe UI"><FONT SIZE="3" COLOR="#666666" FACE="Segoe UI">Join by phone</FONT>&nbsp; <BR><FONT SIZE="2" COLOR="#666666" FACE="Segoe UI"><strong>1-855-244-8681</strong>&nbsp;Call-in toll-free number (US/Canada)</FONT>&nbsp; <BR><FONT SIZE="2" COLOR="#666666" FACE="Segoe UI"><strong>1-650-479-3207</strong>&nbsp;Call-in toll number (US/Canada)</FONT>&nbsp; <BR><a href="https://www.webex.com/pdf/tollfree_restrictions.pdf"><FONT SIZE="2" COLOR="#00AFF9" FACE="Segoe UI">Toll-free calling restrictions</FONT></a> &nbsp; <BR></FONT><BR>	&nbsp;<BR>	<a href="https://help.webex.com/docs/DOC-5412">	<FONT SIZE="1" COLOR="#00AFF9" FACE="Arial">Can't join the meeting?</FONT></a>	&nbsp;<BR>&nbsp;<BR><FONT COLOR="#A0A0A0" size="1" FACE="arial">IMPORTANT NOTICE: Please note that this WebEx service allows audio and other information sent during the session to be recorded, which may be discoverable in a legal matter. By joining this session, you automatically consent to such recordings. If you do not consent to being recorded, discuss your concerns with the host or do not join the session.</FONT></FONT>
+SUMMARY:NIRISS / FGS Team Meeting
+PRIORITY:5
+CLASS:PUBLIC
+BEGIN:VALARM
+TRIGGER:-PT5M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR
