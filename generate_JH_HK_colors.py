@@ -37,10 +37,10 @@ Jmags     = np.zeros(nModels)
 Hmags     = np.zeros(nModels)
 Kmags     = np.zeros(nModels)
 
-Teff_list = [x for x in range(2800,5500+100,100)] + [5800] + [6000]
+Teff_list = [x for x in range(3500,5500+100,100)] + [5800] + [6000]
 
 # check if I did that write
-assert(len(Teff_list) == nModels)
+# assert(len(Teff_list) == nModels)
 
 for kt, Teff in enumerate(Teff_list):
     Jmags[kt], Hmags[kt], Kmags[kt] = get_magnitudes(Teff, \
