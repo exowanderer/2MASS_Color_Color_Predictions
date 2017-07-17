@@ -101,8 +101,8 @@ def hmsdms2deg(ra,dec):
     return raOut, decOut
 
 # RA and Dec for HAT-P-11
-ra     ='19:50:50.25'
-dec    ='+48:04:51.1'
+ra     = '19:50:50.25'
+dec    = '+48:04:51.1'
 binComp=None
 
 deg2rad     = np.pi/180
@@ -114,28 +114,29 @@ deg2arcsec  = 3600
 targetCoords  = coords.SkyCoord(ra=ra, dec=dec, unit=(u.hour, u.deg), frame='icrs')
 fieldSources  = Irsa.query_region(targetCoords, catalog="fp_psc", spatial='Box', width=4 * u.arcmin)
 
-sourceRA    = fieldSources['ra'].data.data # in degrees
+sourceRA    = fieldSources['ra'].data.data  # in degrees
 sourceDec   = fieldSources['dec'].data.data # in degrees
 sourceJmag  = fieldSources['j_m'].data.data
 sourceHmag  = fieldSources['h_m'].data.data
 sourceKmag  = fieldSources['k_m'].data.data
 
 # target coords
-sky_distance    = sqrt((sourceRA-targetCoords.ra.value)**2. + (sourceDec-targetCoords.dec.value)**2.)
-targetIndex     = np.argmin(sky_distance)
+sky_distance= sqrt((sourceRA-targetCoords.ra.value)**2. + (sourceDec-targetCoords.dec.value)**2.)
+targetIndex = np.argmin(sky_distance)
 
-sourceJ_H   = (sourceJmag-sourceHmag)
-sourceH_K   = (sourceHmag-sourceKmag)
+sourceJ_H   = (sourceJmag - sourceHmag)
+sourceH_K   = (sourceHmag - sourceKmag)
 
-ra,dec = deg2HMS(sourceRA[targetIndex], sourceDec[targetIndex], round=True)
+ra,dec      = deg2HMS(sourceRA[targetIndex], sourceDec[targetIndex], round=True)
 
 rcParams['figure.dpi'] = 300
 
-scatter(sourceJ_H, sourceH_K, s=50, c='k', alpha=0.5)
-sc = scatter(jhmod, hkmod,s=50,c=Jmags)
+scatter(sourceJ_H, sourceH_K, s=50, c='k', alpha=0.5, lw = 0)
+sc = scatter(jhmod, hkmod,s=50,c=Jmags,cmap=cm.RdGy_r)
 xlabel('J-H')
 ylabel('H-K')
-title('Color-Color Synthetic vs Catalog; colors=Jmag')
-colorbar(sc)
+title('Color-Color Synthetic vs Catalog')
+cb = colorbar(sc)
+cb.set_label('J-Mag')
 savefig('JH_HK_color_color_plots_sunlike_stars.png')
 # plt.show()
